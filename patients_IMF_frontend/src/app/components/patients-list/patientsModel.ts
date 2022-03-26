@@ -1,13 +1,13 @@
 export class patientsModel{
 
-    pataientsName : String =  ""
+    patientName : String =  ""
     gender : String =  ""
     age : number =  0
-    dob : String = ""
+    dob: Date = new Date("")
     phoneNumber : String =  ""
     email : String =  ""
     address: String = ""
-    photo : String =  "" 
+    photoUrl : String =  "" 
     constructor() {
     }
    

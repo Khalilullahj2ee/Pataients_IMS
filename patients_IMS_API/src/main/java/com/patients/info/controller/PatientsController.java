@@ -9,15 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.patients.info.model.PatientsModel;
 import com.patients.info.repository.PatientsRepository;
+import com.patients.info.storage.service.FileStorageService;
  
  
  
@@ -27,9 +32,12 @@ import com.patients.info.repository.PatientsRepository;
 @CrossOrigin(origins = "*")
 public class PatientsController {
 	
-	Map<String, Object> res = new HashMap<String, Object>();
+	 
 	@Autowired
 	PatientsRepository patientsRepo;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
 	
 	
 	@GetMapping("/list")
@@ -49,22 +57,32 @@ public class PatientsController {
 	}
 	
 	@PostMapping("/save")
-	public Map saveOrder(@RequestBody PatientsModel ptm) {
-		
+	public ResponseEntity<?> save(@ModelAttribute PatientsModel entity, @RequestParam("file") MultipartFile file) {
+		Map<String, Object> map = new HashMap<>();
 		try {
-			PatientsModel saveptn =	patientsRepo.save(ptm);
-			
-			res.put("status", "Patients Save Success");
-			
-			res.put("data", saveptn);
+
+			String fileName = fileStorageService.storeFile(file);
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(fileName).toUriString();
+
+			 
+			entity.setPhotoUrl(fileDownloadUri);
+
+			PatientsModel patient = patientsRepo.save(entity);
+			map.put("message", "Patient successfully saved");
+			map.put("data", patient);
+			map.put("statusCode", 200);
+			return ResponseEntity.ok(map);
 		} catch (Exception e) {
-			res.put("status", "Patients Save Failed");
-			res.put("data", e);
+			e.printStackTrace();
+			map.put("message", "Patient saved failed");
+			map.put("data", null);
+			map.put("statusCode", 400);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
 		}
-	  
-		return res; 
 	}
-	
+	 
+	 
 	@GetMapping("/edit/{id}")
 	public ResponseEntity<Map> findById(@PathVariable(value = "id") long id ,@RequestBody PatientsModel ptm){
 		Map<String, Object> map = new HashMap<>();
