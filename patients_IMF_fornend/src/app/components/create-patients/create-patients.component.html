@@ -1,0 +1,118 @@
+ 
+<div class="content-wrapper" style="min-height: 203px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Add a New Patient</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <form [formGroup]="fg" (ngSubmit)="save()">
+            <div class="row p-5">
+        
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">From</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+        
+                        <div class="card-body"> 
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Patient Name</label>
+                                <input type="text" class="form-control" id="pName" name="pName"
+                                    formControlName="pName" placeholder="Enter Patient Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select class="form-control" id="gender" name="gender" formControlName="gender">
+                                    <option>Select Option</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Others</option> 
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Age</label>
+                                <input type="email" class="form-control" id="senderEmail" name="senderEmail"
+                                    formControlName="senderEmail" placeholder="Enter Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Phone Number</label>
+                                <input type="text" class="form-control" id="senderPhone" name="senderPhone"
+                                    formControlName="senderPhone" placeholder="Enter Your Phone Number">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Address</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter ..." name="senderAddress"
+                                    formControlName="senderAddress"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Document Type</label>
+                                <select class="form-control" name="docType" formControlName="docType">
+                                    <option value="-1">Select Option</option>
+                                    <option value="document">Document</option>
+                                    <option value="non-document">Non Document</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Contants</label>
+                                <input type="text" class="form-control" id="contents" name="contents" formControlName="contents"
+                                    placeholder="Whats kinds of your order">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">weight</label>
+                                <input type="text" class="form-control" id="weight" name="weight" formControlName="weight"
+                                    placeholder="How Match weight">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Quantity</label>
+                                <input type="text" class="form-control" id="quantity" name="quantity"
+                                    formControlName="quantity">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Amount</label>
+                                <input type="text" class="form-control" id="amount" name="amount" formControlName="amount">
+                            </div>
+        
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- general form elements --> 
+                    <div class="float-right mr-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    <a routerLink="/admin/orderlist" class="btn btn-info">Orderlist</a>
+                </div>
+        
+            </div>
+        </form>
+        </section>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
