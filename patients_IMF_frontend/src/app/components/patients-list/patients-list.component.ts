@@ -20,7 +20,7 @@ export class PatientsListComponent implements OnInit {
     this.getPatients()
   }
 
-
+  header = { 'Content-Type': 'application/json' };
   getPatients(){
     console.log("hi patients");
     
@@ -29,6 +29,14 @@ export class PatientsListComponent implements OnInit {
     .subscribe(map=>{
       console.log(map.data);
       this.patientList = map.data
+    })
+  }
+
+  delete(id:string){
+    this.http.post("http://localhost:8081/patient/delete/"+id, JSON.stringify(this.patient), { headers: this.header }).subscribe(res => {
+      console.log(res);
+      this.getPatients()
+
     })
   }
 
