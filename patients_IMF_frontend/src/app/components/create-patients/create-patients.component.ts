@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { patientsModel } from '../patients-list/patientsModel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-patients',
@@ -16,7 +17,7 @@ export class CreatePatientsComponent implements OnInit {
   submitted = false
   fileToUpload: any;
   
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient){
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private toastr: ToastrService){
   this.fg = this.fb.group({
         patientName: ['', [Validators.required]],
         gender: ['', [Validators.required]],
@@ -71,9 +72,10 @@ isSave: boolean = true;
     this.http.post<any>("http://localhost:8081/patient/save", formData)
       .subscribe(data => {
         console.log(data);
-       // this.toastr.success("save successfull");
+      this.toastr.success("save successfull");
       },err => {
         console.log("error");
+        this.toastr.success("save failed");
       }
       )
     //this.router.navigate(["/admin/show"]);

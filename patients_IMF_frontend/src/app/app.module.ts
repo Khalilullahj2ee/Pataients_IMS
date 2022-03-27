@@ -9,6 +9,10 @@ import { HomeComponent } from './components/home/home.component';
 import { PatientsListComponent } from './components/patients-list/patients-list.component';
 import { CreatePatientsComponent } from './components/create-patients/create-patients.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { CommonModule } from '@angular/common'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AppRoutingModule, 
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
